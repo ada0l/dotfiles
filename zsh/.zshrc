@@ -8,7 +8,7 @@ export ZSH="/home/andrey/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="avit"
+ZSH_THEME="robbyrussell"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -99,11 +99,34 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias startsshagent="eval \"\$(ssh-agent -s)\""
+
+
+# ssh aliases
+alias sshstartagent="eval \"\$(ssh-agent -s)\""
 alias sshaddgithub="ssh-add ~/.ssh/github"
+
+# valgrind alieses
+alias valfull="valgrind --leak-check=full \
+         --show-leak-kinds=all \
+         --track-origins=yes \
+         --verbose \
+         --log-file=valgrind-out.txt"
+
+# git alieases
+alias gi="git init"
+alias ga="git add"
+alias gc="git commit"
+alias gs="git status"
+alias gl="git log --graph"
+alias gd="git diff"
+alias gp="git push"
 
 # Base16 Shell
 BASE16_SHELL="$HOME/.config/base16-shell/"
 [ -n "$PS1" ] && \
-    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
         eval "$("$BASE16_SHELL/profile_helper.sh")"
+
+export PATH=$HOME/.local/bin:$PATH
+
+[ -f "$HOME/.dircolors" ] && eval "$(dircolors ~/.dircolors)"
