@@ -1,0 +1,65 @@
+let mapleader="\\"
+
+set history=100000
+
+set scrolloff=5
+
+" search
+set hlsearch
+set ignorecase
+set smartcase
+set visualbell
+set incsearch
+nnoremap <leader><cr> :noh<cr>
+
+" numbers
+set number relativenumber
+
+nnoremap <leader>q :q<CR>
+nnoremap <leader>w :w<CR>
+
+nnoremap <leader><CR> :noh<cr>
+
+" splits
+nnoremap <bar> :vsplit<cr>
+nnoremap _ :split<cr>
+
+" run
+map <leader>dd :action Debug<CR>
+map <leader>cd :action ChooseDebugConfiguration<CR>
+map <leader>rr :action Run<CR>
+map <leader>rd :action Debug<CR>
+map <leader>cr :action ChooseRunConfiguration<CR>
+
+map <leader><tab> :action GotoRelated<CR>
+
+" terminal
+nnoremap <leader>t :action ActivateTerminalToolWindow<CR>
+nnoremap <leader>T :action Terminal.OpenInTerminal<CR>
+
+nmap <leader>x :action HideAllWindows<CR>
+
+nnoremap <leader>ff :action GotoFile<CR>
+nnoremap <leader>fg :action FindInPath<CR>
+
+" move to methods
+nnoremap gb :action Back<CR>
+nnoremap gD :action GotoTypeDeclaration<CR>
+nnoremap gi :action GotoImplementation<CR>
+nnoremap <leader>s :action ShowUsages<CR>
+
+" move between methods
+nnoremap [[ :action MethodUp<CR>
+nnoremap ]] :action MethodDown<CR>
+
+" refactoring
+nnoremap <space>rn :action RenameElement<CR>
+nnoremap == :action ReformatCode<CR>
+vnoremap == :action ReformatCode<CR>
+
+" comment lines
+nnoremap gc :action CommentByLineComment<CR>
+vnoremap gc :action CommentByLineComment<CR>
+
+" https://github.com/tpope/vim-surround
+set surround
