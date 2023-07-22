@@ -5,13 +5,11 @@ set $down j
 set $up k
 set $right l
 
-set $term alacritty
+set $term kitry
 set $menu wofi --show=drun
 
 set $volume_helper_cmd ~/.config/sway/bin/volume-helper.sh
-
 set $brightness_step 5
-
 exec nm-applet
 
 bindsym $mod+greater move workspace to output right

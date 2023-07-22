@@ -6,6 +6,7 @@ end
 set -gx EDITOR (which nvim)
 set -gx VISUAL $EDITOR
 set -gx SUDO_EDITOR $EDITOR
+set -gx PYENV_ROOT $HOME/.pyenv
 
 # path
 fish_add_path ~/go/bin/
@@ -48,8 +49,18 @@ alias ll="exa --color=always --icons --group-directories-first --all --long"
 abbr l ll
 
 # wireguard
-alias wu="wg-quick up wg1"
-alias wd="wg-quick down wg1"
+abbr wu 'wg-quick up'
+abbr wu1 'wg-quick up wg1'
+abbr wd 'wg-quick down'
+abbr wd1 'wg-quick down wg1'
+
+# docker
+alias sd='sudo systemctl start docker'
+abbr dps 'docker ps'
+abbr dpsa 'docker ps -a'
+abbr di 'docker images'
+abbr dex 'docker execute -i -t'
+
 
 # fzf
 set fzf_fd_opts --hidden --exclude=.git
@@ -57,3 +68,12 @@ set -Ux FZF_DEFAULT_OPTS "\
 --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
 --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
 --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
+
+# pyenv
+set -Ux PYENV_ROOT $HOME/.pyenv
+set -U fish_user_paths $PYENV_ROOT/bin $fish_user_paths
+
+# Load pyenv automatically by appending
+# the following to ~/.config/fish/config.fish:
+
+pyenv init - | source
