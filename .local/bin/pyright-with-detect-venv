@@ -1,0 +1,20 @@
+#!/usr/bin/env fish
+
+if test -e ./pyproject.toml
+    if type -q poetry 
+        set path_to_env (poetry env info -p)
+        if test $status -eq 0
+            echo "detected pyright env"
+            # set -gx PYTHONPATH $path_to_env/bin/python
+            source $path_to_env/bin/activate.fish
+        end
+    end
+end
+
+if test -d ./venv 
+    echo "detected env in ./venv"
+    # set -gx PYTHONPATH ./venv/bin/python
+    source ./venv/bin/activate.fish
+end
+
+pyright-langserver --stdio
