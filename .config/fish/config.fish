@@ -3,10 +3,12 @@ if status is-interactive
 end
 
 # editor
-set -gx EDITOR (which nvim)
+set -gx EDITOR (which helix)
 set -gx VISUAL $EDITOR
 set -gx SUDO_EDITOR $EDITOR
 set -gx PYENV_ROOT $HOME/.pyenv
+set -gx GEM_HOME (gem env user_gemhome)
+set -gx DISABLE_AUTO_TITLE true
 
 # path
 fish_add_path ~/go/bin/
@@ -14,6 +16,7 @@ fish_add_path ~/.local/bin/
 fish_add_path ~/.cargo/bin/
 fish_add_path ~/anaconda3/condabin/
 fish_add_path ~/.local/share/nvim/mason/bin/
+fish_add_path $GEM_HOME/bin
 
 set -Ux fish_term24bit 1
 
@@ -27,11 +30,11 @@ abbr dnfr "sudo dnf remove"
 abbr dnfu "sudo dnf upgrade --refresh"
 
 # lazy
-abbr lg "lazygit"
-abbr ld "lazydocker"
+abbr lg lazygit
+abbr ld lazydocker
 
 # git
-abbr g "git"
+abbr g git
 abbr ga "git add"
 abbr glg "git log --graph"
 abbr gd "git diff"
@@ -41,6 +44,15 @@ abbr glo 'git log --pretty=format:"%C(Yellow)%h  %C(reset)%ad (%C(Green)%cr%C(re
 # tmux
 abbr t tmux
 abbr tl 'tmux ls'
+abbr tx tmuxinator
+
+# helix
+abbr hx helix
+
+# neovim
+abbr n nvim
+
+abbr r ranger
 
 # files
 alias ls="exa --color=always --icons --group-directories-first"
@@ -49,31 +61,27 @@ alias ll="exa --color=always --icons --group-directories-first --all --long"
 abbr l ll
 
 # wireguard
-abbr wu 'wg-quick up'
+abbr wg 'wg-quick up'
+abbr wg 'wg-quick down'
 abbr wu1 'wg-quick up wg1'
-abbr wd 'wg-quick down'
 abbr wd1 'wg-quick down wg1'
+abbr wub 'wg-quick up banana'
+abbr wdb 'wg-quick down banana'
 
 # docker
-alias sd='sudo systemctl start docker'
+alias ssd='sudo systemctl start docker'
 abbr dps 'docker ps'
 abbr dpsa 'docker ps -a'
 abbr di 'docker images'
 abbr dex 'docker execute -i -t'
 
-
 # fzf
 set fzf_fd_opts --hidden --exclude=.git
-set -Ux FZF_DEFAULT_OPTS "\
---color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
---color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
---color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8"
 
 # pyenv
 set -Ux PYENV_ROOT $HOME/.pyenv
 set -U fish_user_paths $PYENV_ROOT/bin $fish_user_paths
-
-# Load pyenv automatically by appending
-# the following to ~/.config/fish/config.fish:
-
 pyenv init - | source
+
+set fzf_fd_opts --hidden --exclude=.git
+fzf_configure_bindings --directory=\cf
