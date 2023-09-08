@@ -1,28 +1,51 @@
 [[language]]
 name = "python"
-language-server = { command = "pyright-with-detect-venv" }
-config = {} # <- this is the important line
 auto-format = true
+language-server = { command = "pyright-with-detect-venv" }
+config = {}
+formatter = { command = "sh", args = ["-c", "black --quiet --line-length=79 - | isort -"] }
 
-[language.formatter]
-command = "black"
-args = [ "-", "--quiet", "--line-length=79" ]
+[language.debugger]
+name = "debugpy"
+transport = "stdio"
+command = "python"
+args = ["-m",  "debugpy.adapter"]
+
+[[language.debugger.templates]]
+name = "source"
+request = "launch"
+completion = [ { name = "entrypoint", completion = "filename", default = "." } ]
+args = { mode = "debug", program = "{1}" }
 
 [[language]]
 name = "c"
 auto-format = true
 indent = {tab-width = 2, unit = "  "}
 
+
 [[language]]
 name = "cpp"
-config = { "clangd.fallbackFlags" = [ "-std=c++17", "--background-index" ] }
-language-server = { command = "clangd", args=["--background-index"]}
 auto-format = true
 indent = {tab-width = 2, unit = "  "}
+language-server = { command = "clangd", args=["--background-index"]}
+config = { "clangd.fallbackFlags" = [ "-std=c++17", "--background-index" ] }
+
+
+[[language]]
+name = "sql"
+scope = "source.sql"
+file-types = ["sql"]
+auto-format = true
+comment-token = "--"
+indent = { tab-width = 4, unit = "    " }
+language-server = { command = 'sql-language-server', args= ['up', '--method', 'stdio']}
+config = {}
+
 
 [[grammar]]
 name = "toml"
 source = { git = "https://github.com/ikatyang/tree-sitter-toml", rev = "7cff70bbcbbc62001b465603ca1ea88edd668704" }
+
 
 [[language]]
 name = "fish"
@@ -34,9 +57,11 @@ roots = []
 comment-token = "#"
 indent = { tab-width = 4, unit = "    " }
 
+
 [[grammar]]
 name = "fish"
 source = { git = "https://github.com/ram02z/tree-sitter-fish", rev = "04e54ab6585dfd4fee6ddfe5849af56f101b6d4f" }
+
 
 [[language]]
 name = "json"
@@ -49,9 +74,11 @@ auto-format = true
 config = { "provideFormatter" = true }
 indent = { tab-width = 2, unit = "  " }
 
+
 [[grammar]]
 name = "json"
 source = { git = "https://github.com/tree-sitter/tree-sitter-json", rev = "65bceef69c3b0f24c0b19ce67d79f57c96e90fcb" }
+
 
 [[language]]
 name = "markdown"
@@ -67,15 +94,3 @@ soft-wrap = { enable = true, wrap-at-text-width = true}
 name = "markdown"
 source = { git = "https://github.com/MDeiml/tree-sitter-markdown", rev = "ad8c32917a16dfbb387d1da567bf0c3fb6fffde2" }
 
-[[language]]
-name = "sql"
-scope = "source.sql"
-file-types = ["sql"]
-roots = []
-comment-token = "--"
-indent = { tab-width = 4, unit = "    " }
-injection-regex = "sql"
-
-[[grammar]]
-name = "sql"
-source = { git = "https://github.com/DerekStride/tree-sitter-sql", rev = "0caa7fa2ee00e0b770493a79d4efacc1fc376cc5" }
