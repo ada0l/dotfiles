@@ -46,6 +46,9 @@ abbr t tmux
 abbr tl 'tmux ls'
 abbr tx tmuxinator
 
+# zellij
+abbr z zellij
+
 # helix
 abbr hx helix
 
