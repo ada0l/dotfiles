@@ -1,0 +1,5 @@
+gui:
+  windowSize: "half"
+  expandFocusedSidePanel: true
+  mainPanelSplitMode: 'flexible'
+  language: "en"
